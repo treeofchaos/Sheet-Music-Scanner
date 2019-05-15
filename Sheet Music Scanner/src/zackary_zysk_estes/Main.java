@@ -17,6 +17,7 @@ public class Main
 	public static int imageWidth=0;
 	public static int imageHeight=0;
 	public static ArrayList<String> staffCoordinates=new ArrayList<String>();
+	public static String[] coordinateBreak;
 	public static void main(String[]args) throws IOException
 	{
 		Scanner scan=new Scanner(System.in);
@@ -58,8 +59,28 @@ public class Main
 		getStaff(image,blackPixelCountStaff,systemSkipCount,staffCount);
 		System.out.println(staffCoordinates);
 		Object[] objects=staffCoordinates.toArray();
-		String[] coordinates=Arrays.asList(objects).toArray(new String[0]);
-		
+		String[] coordinatesPlaceholder=Arrays.asList(objects).toArray(new String[0]);
+		int[][] coordinates=new int[coordinatesPlaceholder.length][2];
+		for(int i=0; i<coordinatesPlaceholder.length;i++)
+		{
+			coordinateBreak=coordinatesPlaceholder[i].split(" ");
+			coordinates[i][0]=Integer.parseInt(coordinateBreak[0]);
+			coordinates[i][1]=Integer.parseInt(coordinateBreak[1]);
+		}
+		for(int i=0;i<coordinates.length;i++)
+		{
+			for(int j=0;j<coordinates[i].length;j++)
+			{
+				if(j<1)
+				{
+					System.out.print(coordinates[i][j]);
+				}
+				else
+				{
+					System.out.println(","+coordinates[i][j]);
+				}
+			}
+		}
 	}
 	private static void getImageDims(BufferedImage image){
 		imageWidth=image.getWidth();
